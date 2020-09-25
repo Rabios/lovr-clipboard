@@ -1,6 +1,6 @@
 # lovr-clipboard
 
-Clipboard module for LÖVR!
+Clipboard module for LÖVR
 
 ### Usage
 

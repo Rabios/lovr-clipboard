@@ -6,6 +6,7 @@ local ffi = assert(type(jit) == "table" and               -- Only run if we have
   lovr.getOS() ~= "Android" and lovr.getOS() ~= "Web" and -- and also GLFW
   require("ffi"), "lovr-joystick cannot run on this platform!")
 local C = (lovr.getOS() ~= "Android" and lovr.getOS() ~= "Web") and ffi.load("glfw3") or ffi.C
+local C_str = ffi.string
 
 ffi.cdef([[
     typedef struct GLFWwindow GLFWwindow;
@@ -19,7 +20,7 @@ local window    = C.glfwGetCurrentContext()
 local clipboard = {}
 
 function clipboard.get()
-  return ffi.string(C.glfwGetClipboardString(window))
+  return C_str(C.glfwGetClipboardString(window))
 end
 
 function clipboard.set(str)

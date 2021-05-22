@@ -2,7 +2,8 @@
 -- Clipboard module for LÖVR
 
 -- Load FFI and check support for lovr-joystick
-local osname = (lovr.getOS() or lovr.system.getOS())
+local osname_func = (lovr.getOS or lovr.system.getOS)
+local osname = osname_func()
 local ffi = assert(type(jit) == "table" and               -- Only run if we have LuaJIT
   osname ~= "Android" and osname ~= "Web" and -- and also GLFW
   require("ffi"), "lovr-joystick cannot run on this platform!")

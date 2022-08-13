@@ -19,7 +19,7 @@ void glfwSetClipboardString(GLFWwindow *window, const char *string);
 local window = C.glfwGetCurrentContext()
 
 ---@class clipboardlib
----Clipboard module for LOVR that leverages GLFW through LuaJIT's FFI, To use:
+---Clipboard module for LÖVR that leverages GLFW through LuaJIT's FFI, To use:
 ---```lua
 ---lovr.clipboard = require("lovr-clipboard")
 ---```

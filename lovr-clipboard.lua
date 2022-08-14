@@ -43,6 +43,17 @@ local clipboard = {
 }
 
 ---@version JIT
+---Retreives GLFW error message and error code, This function is internal and not exposed for public usage.
+---@return integer error_code
+---@return string|nil error_message
+local function get_glfw_error()
+  local error_message = nil
+  local error_code = C.glfwGetError(error_message)
+
+  return error_code, cstr(error_message)
+end
+
+---@version JIT
 ---Returns the last text copied to the Clipboard as string in addition to error's code and message if error occurred, Example:
 ---```lua
 ---local txt, error_code, error_message = lovr.clipboard.get()
@@ -54,10 +65,9 @@ local clipboard = {
 ---@return integer error_code
 ---@return string|nil error_message
 function clipboard.get()
-  local text, error_message = C.glfwGetClipboardString(window), nil
-  local error_code = C.glfwGetError(error_message)
-
-  return cstr(text), error_code, cstr(error_message)
+  local text = C.glfwGetClipboardString(window)
+  
+  return cstr(text), get_glfw_error()
 end
 
 ---@version JIT
@@ -76,12 +86,10 @@ end
 ---@return integer error_code
 ---@return string|nil error_message
 function clipboard.set(text)
-  local error_message = nil
   C.glfwSetClipboardString(window, text)
+  local error_code, error_message = get_glfw_error()
 
-  local error_code = C.glfwGetError(error_message)
-
-  return (error_code == clipboard.errors.NONE), error_code, cstr(error_message)
+  return (error_code == clipboard.errors.NONE), error_code, error_message
 end
 
 ---@version JIT

@@ -8,9 +8,9 @@ Clipboard module for LÖVR that leverages GLFW through LuaJIT's FFI.
 -- Require the module so we can deal with the Clipboard.
 lovr.clipboard = require("lovr-clipboard")
 
-function lovr.load()
-  local text
-  
+local text = nil
+
+function lovr.load()  
   -- Copy text "Hello, Clipboard!" to the Clipboard.
   local success, error_code, error_message = lovr.clipboard.set("Hello, Clipboard!")
   
@@ -18,7 +18,7 @@ function lovr.load()
   if success then
     text, error_code, error_message = lovr.clipboard.get()
   end
-
+  
   -- If error occurred then set the text to the error message.
   if ((not success) or (text == nil)) then
     text = error_message

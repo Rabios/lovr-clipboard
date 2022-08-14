@@ -88,7 +88,7 @@ end
 function clipboard.set(text)
   C.glfwSetClipboardString(window, text)
   local error_code, error_message = get_glfw_error()
-
+  
   return (error_code == clipboard.errors.NONE), error_code, error_message
 end
 
